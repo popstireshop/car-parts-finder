@@ -157,7 +157,7 @@
   var TIRE_STORES = [
     { name:'Tire Rack',                               logo:'TR',  type:'tire', search:function(q){ var m=q.replace(/\s+/g,'').match(/^(\d{3})\/(\d{2})R(\d{2})$/i); if(m) return 'https://www.tirerack.com/tires/TireSearchResults.jsp?zip-code=94536&width='+m[1]+'%2F&ratio='+m[2]+'&diameter='+m[3]; return 'https://www.tirerack.com/tires/TireSearchResults.jsp?zip-code=94536&search='+enc(q); } },
     { name:'Simple Tire (Need Manual Input)',          logo:'ST',  type:'tire', search:function(q){ return 'https://simpletire.com/?srsltid=AfmBOooyifmwurLT6IMVlUMhkM-rlmXjD7szMZ5c61rCY6vFtnKeots2'; } },
-    { name:'Race Treads (Need Manual Input)',          logo:'RT',  type:'tire', search:function(q){ return 'https://www.racetreads.com/tires'; } },
+    { name:'Race Treads (Need Manual Input)',          logo:'RT',  type:'tire', search:function(q){ return 'https://www.racetreads.com/'; } },
     { name:'US Autoforce (Need Login)',                logo:'UA',  type:'tire', search:function(q){ return 'https://www.usautoforce.com'; } },
     { name:'American Tire Distributors (Need Login)',  logo:'ATD', type:'tire', search:function(q){ return 'https://www.atd.com'; } }
   ];
