@@ -3,37 +3,51 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Car Parts Finder</title>
+<title>Pop's Tire Shop Parts Finder</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f5f5f3; color: #1a1a1a; min-height: 100vh; padding: 2rem 1rem; }
   .container { max-width: 780px; margin: 0 auto; }
-  h1 { font-size: 22px; font-weight: 500; margin-bottom: 0.25rem; }
-  .subtitle { font-size: 14px; color: #666; margin-bottom: 1.5rem; }
+  h1 { font-size: 26px; font-weight: 500; margin-bottom: 0.25rem; }
+  .subtitle { font-size: 15px; color: #666; margin-bottom: 1.5rem; }
+
+  /* Tabs */
   .tabs { display: flex; gap: 8px; margin-bottom: 12px; }
   .tab { padding: 6px 14px; border-radius: 8px; border: 0.5px solid #ccc; background: #fff; color: #1a1a1a; font-size: 14px; cursor: pointer; }
   .tab.active { border: 2px solid #3b82f6; background: #eff6ff; color: #1d4ed8; font-weight: 500; }
+
+  /* Inputs */
   input[type="text"], select { width: 100%; padding: 8px 12px; border: 0.5px solid #ccc; border-radius: 8px; font-size: 14px; background: #fff; color: #1a1a1a; outline: none; }
   input[type="text"]:focus, select:focus { border-color: #3b82f6; box-shadow: 0 0 0 2px rgba(59,130,246,0.2); }
   .vehicle-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+
+  /* Buttons */
   .search-row { display: flex; justify-content: flex-end; margin: 12px 0 1.25rem; }
   .btn-primary { padding: 8px 24px; background: #eff6ff; color: #1d4ed8; border: 0.5px solid #3b82f6; border-radius: 8px; font-weight: 500; cursor: pointer; font-size: 14px; }
   .btn-open-all { padding: 7px 16px; background: #eff6ff; color: #1d4ed8; border: 0.5px solid #3b82f6; border-radius: 8px; font-weight: 500; cursor: pointer; font-size: 13px; }
   .btn-open { font-size: 12px; padding: 5px 12px; border-radius: 8px; border: 0.5px solid #ccc; background: transparent; color: #1a1a1a; cursor: pointer; flex-shrink: 0; margin-left: auto; }
   .link-toggle { background: none; border: none; color: #3b82f6; cursor: pointer; font-size: 13px; padding: 0; }
+
+  /* Legend */
   .legend-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; }
-  .legend { display: flex; gap: 16px; }
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; }
   .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #666; }
   .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+  /* Sections */
   .section-label { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
   .section-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
   .section-text { font-size: 12px; font-weight: 500; color: #888; text-transform: uppercase; letter-spacing: 0.05em; }
+
+  /* Store cards */
   .store-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 8px; margin-bottom: 1rem; }
   .store-card { background: #fff; border: 0.5px solid #e0e0e0; border-radius: 12px; padding: 10px 12px; cursor: pointer; display: flex; align-items: center; gap: 10px; user-select: none; }
   .store-card.off { background: #f5f5f3; opacity: 0.5; }
   .store-card.on { border: 2px solid #3b82f6; }
   .store-logo { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 500; font-size: 11px; flex-shrink: 0; letter-spacing: 0.02em; }
   .store-name { font-size: 12px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  /* Results */
   .results-box { background: #f5f5f3; border: 0.5px solid #e0e0e0; border-radius: 12px; padding: 1rem 1.25rem; margin-top: 0.5rem; }
   .results-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
   .results-title { font-size: 14px; font-weight: 500; }
@@ -47,20 +61,26 @@
 </head>
 <body>
 <div class="container">
-  <h1>Car Parts Finder</h1>
+  <h1>Pop's Tire Shop Parts Finder</h1>
   <p class="subtitle">Search across major retailers — opens each store with your query pre-filled.</p>
 
+  <!-- Tabs -->
   <div class="tabs">
     <button class="tab active" data-type="keyword">Keyword</button>
     <button class="tab" data-type="part_number">Part #</button>
     <button class="tab" data-type="vehicle">By Vehicle</button>
+    <button class="tab" data-type="tires">Tires</button>
   </div>
 
+  <!-- Inputs -->
   <div id="input-keyword">
     <input type="text" id="q-keyword" placeholder="e.g. brake pads, alternator, serpentine belt..." />
   </div>
   <div id="input-part_number" style="display:none">
     <input type="text" id="q-part" placeholder="e.g. 140-10735, ACDelco 17D1367M..." />
+  </div>
+  <div id="input-tires" style="display:none">
+    <input type="text" id="q-tires" placeholder="e.g. 225/45R17, Michelin Pilot Sport 4S..." />
   </div>
   <div id="input-vehicle" style="display:none">
     <div class="vehicle-grid">
@@ -70,16 +90,14 @@
     </div>
   </div>
 
+  <!-- Search button -->
   <div class="search-row">
     <button class="btn-primary" id="search-btn">Search</button>
   </div>
 
+  <!-- Legend + toggle -->
   <div class="legend-row">
-    <div class="legend">
-      <div class="legend-item"><div class="legend-dot" style="background:#16a34a"></div> Wholesalers</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#eab308"></div> Need Input</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#dc2626"></div> Retailers</div>
-    </div>
+    <div class="legend" id="legend"></div>
     <button class="link-toggle" id="toggle-all-btn">Deselect all</button>
   </div>
 
@@ -93,62 +111,77 @@
   var plus  = function(s) { return enc(s).replace(/%20/g, '+'); };
   var under = function(s) { return enc(s).replace(/%20/g, '_'); };
 
-  var WHOLESALE_COLOR  = '#16a34a';
-  var NEED_INPUT_COLOR = '#eab308';
-  var RETAIL_COLOR     = '#dc2626';
+  var COLORS = {
+    wholesale: '#16a34a',
+    needinput: '#eab308',
+    retail:    '#dc2626',
+    tire:      '#2563eb'
+  };
 
-  var COLOR_MAP = { wholesale: WHOLESALE_COLOR, needinput: NEED_INPUT_COLOR, retail: RETAIL_COLOR };
-
-  var SECTIONS = [
-    { type: 'wholesale', label: 'Wholesalers', color: WHOLESALE_COLOR  },
-    { type: 'needinput', label: 'Need Input',  color: NEED_INPUT_COLOR },
-    { type: 'retail',    label: 'Retailers',   color: RETAIL_COLOR     }
+  var PARTS_SECTIONS = [
+    { type:'wholesale', label:'Wholesalers', color: COLORS.wholesale },
+    { type:'needinput', label:'Need Input',  color: COLORS.needinput },
+    { type:'retail',    label:'Retailers',   color: COLORS.retail    }
   ];
 
-  var STORES = [
+  var TIRE_SECTIONS = [
+    { type:'tire', label:'Tire Stores', color: COLORS.tire }
+  ];
+
+  var PARTS_STORES = [
     // Wholesalers
-    { name: 'RockAuto (Wholesaler)',                  logo: 'RA',  type: 'wholesale', search: function(q) { return 'https://www.rockauto.com/en/partsearch/?partnum=' + enc(q); },                                                                                                                                                            vehicle: function(y,mk,mo) { return 'https://www.rockauto.com/en/catalog/' + enc(mk) + ',' + y + '/'; } },
-    { name: 'AutoZone (Wholesaler)',                  logo: 'AZ',  type: 'wholesale', search: function(q) { return 'https://www.autozone.com/searchresult?searchText=' + enc(q); },                                                                                                                                                           vehicle: function(y,mk,mo) { return 'https://www.autozone.com/searchresult?searchText=' + enc(y+' '+mk+' '+mo); } },
-    { name: 'OReilly (Wholesaler)',                   logo: 'OR',  type: 'wholesale', search: function(q) { return 'https://www.oreillyauto.com/search?q=' + enc(q); },                                                                                                                                                                       vehicle: function(y,mk,mo) { return 'https://www.oreillyauto.com/search?q=' + enc(y+' '+mk+' '+mo); } },
-    { name: 'SpeedImage (Wholesaler)',                logo: 'SI',  type: 'wholesale', search: function(q) { return 'https://www.speedimageusa.com/search_adv.asp?keyword=' + enc(q) + '&sort=relevance&page=1&pageSize=24'; },                                                                                                                vehicle: function(y,mk,mo) { return 'https://www.speedimageusa.com/search_adv.asp?keyword=' + enc(y+' '+mk+' '+mo) + '&sort=relevance&page=1&pageSize=24'; } },
-    { name: 'System Motorsports (Wholesaler)',        logo: 'SM',  type: 'wholesale', search: function(q) { return 'https://www.systemmotorsports.com/search?q=' + enc(q); },                                                                                                                                                                 vehicle: function(y,mk,mo) { return 'https://www.systemmotorsports.com/search?q=' + enc(y+' '+mk+' '+mo); } },
-    { name: 'Aodhan Wheels (Wholesaler)',             logo: 'AW',  type: 'wholesale', search: function(q) { return 'https://www.aodhanwheels.com/search?q=' + plus(q); },                                                                                                                                                                    vehicle: function(y,mk,mo) { return 'https://www.aodhanwheels.com/search?q=' + plus(mk+' '+mo); } },
-    { name: 'Dobinsons (Wholesaler)',                 logo: 'DB',  type: 'wholesale', search: function(q) { return 'https://dobinsonusa.com/?s=' + plus(q) + '&post_type=product&type_aws=true'; },                                                                                                                                          vehicle: function(y,mk,mo) { return 'https://dobinsonusa.com/?s=' + plus(mk+' '+mo) + '&post_type=product&type_aws=true'; } },
+    { name:'RockAuto (Wholesaler)',                  logo:'RA',  type:'wholesale', search:function(q){return 'https://www.rockauto.com/en/partsearch/?partnum='+enc(q);},                                                                                                                                                                vehicle:function(y,mk,mo){return 'https://www.rockauto.com/en/catalog/'+enc(mk)+','+y+'/';} },
+    { name:'AutoZone (Wholesaler)',                  logo:'AZ',  type:'wholesale', search:function(q){return 'https://www.autozone.com/searchresult?searchText='+enc(q);},                                                                                                                                                               vehicle:function(y,mk,mo){return 'https://www.autozone.com/searchresult?searchText='+enc(y+' '+mk+' '+mo);} },
+    { name:'OReilly (Wholesaler)',                   logo:'OR',  type:'wholesale', search:function(q){return 'https://www.oreillyauto.com/search?q='+enc(q);},                                                                                                                                                                           vehicle:function(y,mk,mo){return 'https://www.oreillyauto.com/search?q='+enc(y+' '+mk+' '+mo);} },
+    { name:'SpeedImage (Wholesaler)',                logo:'SI',  type:'wholesale', search:function(q){return 'https://www.speedimageusa.com/search_adv.asp?keyword='+enc(q)+'&sort=relevance&page=1&pageSize=24';},                                                                                                                      vehicle:function(y,mk,mo){return 'https://www.speedimageusa.com/search_adv.asp?keyword='+enc(y+' '+mk+' '+mo)+'&sort=relevance&page=1&pageSize=24';} },
+    { name:'System Motorsports (Wholesaler)',        logo:'SM',  type:'wholesale', search:function(q){return 'https://www.systemmotorsports.com/search?q='+enc(q);},                                                                                                                                                                     vehicle:function(y,mk,mo){return 'https://www.systemmotorsports.com/search?q='+enc(y+' '+mk+' '+mo);} },
+    { name:'Aodhan Wheels (Wholesaler)',             logo:'AW',  type:'wholesale', search:function(q){return 'https://www.aodhanwheels.com/search?q='+plus(q);},                                                                                                                                                                         vehicle:function(y,mk,mo){return 'https://www.aodhanwheels.com/search?q='+plus(mk+' '+mo);} },
+    { name:'Dobinsons (Wholesaler)',                 logo:'DB',  type:'wholesale', search:function(q){return 'https://dobinsonusa.com/?s='+plus(q)+'&post_type=product&type_aws=true';},                                                                                                                                                 vehicle:function(y,mk,mo){return 'https://dobinsonusa.com/?s='+plus(mk+' '+mo)+'&post_type=product&type_aws=true';} },
     // Need Input
-    { name: 'WorldPac (Need Login)',                  logo: 'WP',  type: 'needinput', search: function(q) { return 'https://www.worldpac.com/search?q=' + plus(q); },                                                                                                                                                                        vehicle: function(y,mk,mo) { return 'https://www.worldpac.com/search?q=' + plus(mk+' '+mo); } },
-    { name: 'Turn14 (Need Login)',                    logo: 'T14', type: 'needinput', search: function(q) { return 'https://www.turn14.com/search?q=' + enc(q); },                                                                                                                                                                           vehicle: function(y,mk,mo) { return 'https://www.turn14.com/search?q=' + enc(y+' '+mk+' '+mo); } },
-    { name: 'Allied Auto Stores (Need Manual Input)', logo: 'AL',  type: 'needinput', search: function(q) { return 'https://www.alliedautoparts.com/search?q=' + enc(q); },                                                                                                                                                                  vehicle: function(y,mk,mo) { return 'https://www.alliedautoparts.com/search?q=' + enc(y+' '+mk+' '+mo); } },
+    { name:'WorldPac (Need Login)',                  logo:'WP',  type:'needinput', search:function(q){return 'https://www.worldpac.com/search?q='+plus(q);},                                                                                                                                                                             vehicle:function(y,mk,mo){return 'https://www.worldpac.com/search?q='+plus(mk+' '+mo);} },
+    { name:'Turn14 (Need Login)',                    logo:'T14', type:'needinput', search:function(q){return 'https://www.turn14.com/search?q='+enc(q);},                                                                                                                                                                                vehicle:function(y,mk,mo){return 'https://www.turn14.com/search?q='+enc(y+' '+mk+' '+mo);} },
+    { name:'Allied Auto Stores (Need Manual Input)', logo:'AL',  type:'needinput', search:function(q){return 'https://www.alliedautoparts.com/search?q='+enc(q);},                                                                                                                                                                       vehicle:function(y,mk,mo){return 'https://www.alliedautoparts.com/search?q='+enc(y+' '+mk+' '+mo);} },
     // Retailers
-    { name: 'Advance Auto',                           logo: 'AA',  type: 'retail',    search: function(q) { return 'https://shop.advanceautoparts.com/web/SearchResults?searchTerm=' + plus(q) + '&autoSuggest=false&recentSearch=false&popularSearch=false&storeId=10151&catalogId=10051&langId=-1'; },                                     vehicle: function(y,mk,mo) { return 'https://shop.advanceautoparts.com/web/SearchResults?searchTerm=' + plus(y+' '+mk+' '+mo) + '&autoSuggest=false&recentSearch=false&popularSearch=false&storeId=10151&catalogId=10051&langId=-1'; } },
-    { name: 'NAPA',                                   logo: 'NP',  type: 'retail',    search: function(q) { return 'https://www.napaonline.com/en/search?text=' + enc(q) + '&referer=v2'; },                                                                                                                                                 vehicle: function(y,mk,mo) { return 'https://www.napaonline.com/en/search?text=' + enc(y+' '+mk+' '+mo) + '&referer=v2'; } },
-    { name: 'eBay Motors',                            logo: 'eB',  type: 'retail',    search: function(q) { return 'https://www.ebay.com/sch/i.html?_nkw=' + enc(q) + '&_sacat=6000'; },                                                                                                                                                    vehicle: function(y,mk,mo) { return 'https://www.ebay.com/sch/i.html?_nkw=' + enc(y+' '+mk+' '+mo) + '&_sacat=6000'; } },
-    { name: 'Amazon',                                 logo: 'Am',  type: 'retail',    search: function(q) { return 'https://www.amazon.com/s?k=' + enc(q) + '&i=automotive'; },                                                                                                                                                              vehicle: function(y,mk,mo) { return 'https://www.amazon.com/s?k=' + enc(y+' '+mk+' '+mo+' parts') + '&i=automotive'; } },
-    { name: 'CarParts.com',                           logo: 'CP',  type: 'retail',    search: function(q) { return 'https://www.carparts.com/search?q=' + under(q); },                                                                                                                                                                       vehicle: function(y,mk,mo) { return 'https://www.carparts.com/search?q=' + under(y+' '+mk+' '+mo); } },
-    { name: 'FCP Euro',                               logo: 'FC',  type: 'retail',    search: function(q) { return 'https://www.fcpeuro.com/Parts?keywords=' + plus(q); },                                                                                                                                                                   vehicle: function(y,mk,mo) { return 'https://www.fcpeuro.com/Parts?keywords=' + plus(y+' '+mk+' '+mo); } },
-    { name: 'ECS Tuning',                             logo: 'EC',  type: 'retail',    search: function(q) { return 'https://www.ecstuning.com/Search/SiteSearch/' + enc(q.replace(/\s+/g,'_')) + '/'; },                                                                                                                                     vehicle: function(y,mk,mo) { return 'https://www.ecstuning.com/Search/SiteSearch/' + enc((y+'_'+mk+'_'+mo).replace(/\s+/g,'_')) + '/'; } },
-    { name: 'Pelican Parts',                          logo: 'PP',  type: 'retail',    search: function(q) { return 'https://www.pelicanparts.com/search/?q=' + plus(q); },                                                                                                                                                                   vehicle: function(y,mk,mo) { return 'https://www.pelicanparts.com/search/?q=' + plus(mk+' '+y+' '+mo); } },
-    { name: 'Summit Racing',                          logo: 'SR',  type: 'retail',    search: function(q) { return 'https://www.summitracing.com/search?keyword=' + enc(q); },                                                                                                                                                                vehicle: function(y,mk,mo) { return 'https://www.summitracing.com/search?keyword=' + enc(y+' '+mk+' '+mo); } },
-    { name: 'JEGS',                                   logo: 'JG',  type: 'retail',    search: function(q) { return 'https://www.jegs.com/webapp/wcs/stores/servlet/SearchResultsPageCmd?q=' + plus(q) + '&storeId=10001&catalogId=10002&langId=-1&channelSource=WEB'; },                                                                     vehicle: function(y,mk,mo) { return 'https://www.jegs.com/webapp/wcs/stores/servlet/SearchResultsPageCmd?q=' + plus(y+' '+mk+' '+mo) + '&storeId=10001&catalogId=10002&langId=-1&channelSource=WEB'; } }
+    { name:'Advance Auto',                           logo:'AA',  type:'retail',    search:function(q){return 'https://shop.advanceautoparts.com/web/SearchResults?searchTerm='+plus(q)+'&autoSuggest=false&recentSearch=false&popularSearch=false&storeId=10151&catalogId=10051&langId=-1';},                                            vehicle:function(y,mk,mo){return 'https://shop.advanceautoparts.com/web/SearchResults?searchTerm='+plus(y+' '+mk+' '+mo)+'&autoSuggest=false&recentSearch=false&popularSearch=false&storeId=10151&catalogId=10051&langId=-1';} },
+    { name:'NAPA',                                   logo:'NP',  type:'retail',    search:function(q){return 'https://www.napaonline.com/en/search?text='+enc(q)+'&referer=v2';},                                                                                                                                                        vehicle:function(y,mk,mo){return 'https://www.napaonline.com/en/search?text='+enc(y+' '+mk+' '+mo)+'&referer=v2';} },
+    { name:'eBay Motors',                            logo:'eB',  type:'retail',    search:function(q){return 'https://www.ebay.com/sch/i.html?_nkw='+enc(q)+'&_sacat=6000';},                                                                                                                                                           vehicle:function(y,mk,mo){return 'https://www.ebay.com/sch/i.html?_nkw='+enc(y+' '+mk+' '+mo)+'&_sacat=6000';} },
+    { name:'Amazon',                                 logo:'Am',  type:'retail',    search:function(q){return 'https://www.amazon.com/s?k='+enc(q)+'&i=automotive';},                                                                                                                                                                     vehicle:function(y,mk,mo){return 'https://www.amazon.com/s?k='+enc(y+' '+mk+' '+mo+' parts')+'&i=automotive';} },
+    { name:'CarParts.com',                           logo:'CP',  type:'retail',    search:function(q){return 'https://www.carparts.com/search?q='+under(q);},                                                                                                                                                                            vehicle:function(y,mk,mo){return 'https://www.carparts.com/search?q='+under(y+' '+mk+' '+mo);} },
+    { name:'FCP Euro',                               logo:'FC',  type:'retail',    search:function(q){return 'https://www.fcpeuro.com/Parts?keywords='+plus(q);},                                                                                                                                                                        vehicle:function(y,mk,mo){return 'https://www.fcpeuro.com/Parts?keywords='+plus(y+' '+mk+' '+mo);} },
+    { name:'ECS Tuning',                             logo:'EC',  type:'retail',    search:function(q){return 'https://www.ecstuning.com/Search/SiteSearch/'+enc(q.replace(/\s+/g,'_'))+'/';},                                                                                                                                            vehicle:function(y,mk,mo){return 'https://www.ecstuning.com/Search/SiteSearch/'+enc((y+'_'+mk+'_'+mo).replace(/\s+/g,'_'))+'/';} },
+    { name:'Pelican Parts',                          logo:'PP',  type:'retail',    search:function(q){return 'https://www.pelicanparts.com/search/?q='+plus(q);},                                                                                                                                                                        vehicle:function(y,mk,mo){return 'https://www.pelicanparts.com/search/?q='+plus(mk+' '+y+' '+mo);} },
+    { name:'Summit Racing',                          logo:'SR',  type:'retail',    search:function(q){return 'https://www.summitracing.com/search?keyword='+enc(q);},                                                                                                                                                                    vehicle:function(y,mk,mo){return 'https://www.summitracing.com/search?keyword='+enc(y+' '+mk+' '+mo);} },
+    { name:'JEGS',                                   logo:'JG',  type:'retail',    search:function(q){return 'https://www.jegs.com/webapp/wcs/stores/servlet/SearchResultsPageCmd?q='+plus(q)+'&storeId=10001&catalogId=10002&langId=-1&channelSource=WEB';},                                                                            vehicle:function(y,mk,mo){return 'https://www.jegs.com/webapp/wcs/stores/servlet/SearchResultsPageCmd?q='+plus(y+' '+mk+' '+mo)+'&storeId=10001&catalogId=10002&langId=-1&channelSource=WEB';} }
+  ];
+
+  var TIRE_STORES = [
+    { name:'Tire Rack',                               logo:'TR',  type:'tire', search:function(q){ var m=q.replace(/\s+/g,'').match(/^(\d{3})\/(\d{2})R(\d{2})$/i); if(m) return 'https://www.tirerack.com/tires/TireSearchResults.jsp?zip-code=94536&width='+m[1]+'%2F&ratio='+m[2]+'&diameter='+m[3]; return 'https://www.tirerack.com/tires/TireSearchResults.jsp?zip-code=94536&search='+enc(q); } },
+    { name:'Simple Tire (Need Manual Input)',          logo:'ST',  type:'tire', search:function(q){ return 'https://simpletire.com/?srsltid=AfmBOooyifmwurLT6IMVlUMhkM-rlmXjD7szMZ5c61rCY6vFtnKeots2'; } },
+    { name:'Race Treads (Need Manual Input)',          logo:'RT',  type:'tire', search:function(q){ return 'https://www.racetreads.com/tires'; } },
+    { name:'US Autoforce (Need Login)',                logo:'UA',  type:'tire', search:function(q){ return 'https://www.usautoforce.com'; } },
+    { name:'American Tire Distributors (Need Login)',  logo:'ATD', type:'tire', search:function(q){ return 'https://www.atd.com'; } }
   ];
 
   var searchType = 'keyword';
   var selected   = {};
   var searched   = false;
-  STORES.forEach(function(s) { selected[s.name] = true; });
+
+  PARTS_STORES.concat(TIRE_STORES).forEach(function(s) { selected[s.name] = true; });
+
+  function activeStores()   { return searchType === 'tires' ? TIRE_STORES : PARTS_STORES; }
+  function activeSections() { return searchType === 'tires' ? TIRE_SECTIONS : PARTS_SECTIONS; }
 
   // Populate year/make dropdowns
   var yearSel = document.getElementById('q-year');
   for (var y = 2024; y >= 1985; y--) {
-    var opt = document.createElement('option');
-    opt.value = opt.textContent = y;
-    yearSel.appendChild(opt);
+    var o = document.createElement('option');
+    o.value = o.textContent = y;
+    yearSel.appendChild(o);
   }
-  var makes = ['Acura','BMW','Chevrolet','Dodge','Ford','Honda','Hyundai','Jeep','Kia','Mazda','Mercedes-Benz','Nissan','Subaru','Toyota','Volkswagen','Volvo'];
-  var makeSel = document.getElementById('q-make');
-  makes.forEach(function(m) {
-    var opt = document.createElement('option');
-    opt.value = opt.textContent = m;
-    makeSel.appendChild(opt);
+  ['Acura','BMW','Chevrolet','Dodge','Ford','Honda','Hyundai','Jeep','Kia','Mazda','Mercedes-Benz','Nissan','Subaru','Toyota','Volkswagen','Volvo'].forEach(function(m) {
+    var o = document.createElement('option');
+    o.value = o.textContent = m;
+    document.getElementById('q-make').appendChild(o);
   });
 
   // Tab switching
@@ -157,101 +190,96 @@
       searchType = tab.dataset.type;
       document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
       tab.classList.add('active');
-      ['keyword','part_number','vehicle'].forEach(function(id) {
+      ['keyword','part_number','vehicle','tires'].forEach(function(id) {
         document.getElementById('input-'+id).style.display = id === searchType ? '' : 'none';
       });
       searched = false;
+      renderLegend();
+      renderStores();
       renderResults();
     });
   });
 
-  // Enter key on inputs
-  ['q-keyword','q-part','q-model'].forEach(function(id) {
-    document.getElementById(id).addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') doSearch();
-    });
-    document.getElementById(id).addEventListener('input', function() {
-      searched = false;
-      renderResults();
-    });
+  // Enter key + input reset
+  ['q-keyword','q-part','q-model','q-tires'].forEach(function(id) {
+    var el = document.getElementById(id);
+    el.addEventListener('keydown', function(e) { if (e.key === 'Enter') doSearch(); });
+    el.addEventListener('input',   function()  { searched = false; renderResults(); });
   });
   ['q-year','q-make'].forEach(function(id) {
-    document.getElementById(id).addEventListener('change', function() {
-      searched = false;
-      renderResults();
-    });
+    document.getElementById(id).addEventListener('change', function() { searched = false; renderResults(); });
   });
 
-  // Search button
   document.getElementById('search-btn').addEventListener('click', doSearch);
-
-  // Toggle all button
   document.getElementById('toggle-all-btn').addEventListener('click', function() {
-    var allOn = STORES.every(function(s) { return selected[s.name]; });
-    STORES.forEach(function(s) { selected[s.name] = !allOn; });
+    var stores = activeStores();
+    var allOn  = stores.every(function(s) { return selected[s.name]; });
+    stores.forEach(function(s) { selected[s.name] = !allOn; });
     renderStores();
     renderResults();
   });
 
   function getQuery() {
     if (searchType === 'part_number') return document.getElementById('q-part').value.trim();
+    if (searchType === 'tires')       return document.getElementById('q-tires').value.trim();
     return document.getElementById('q-keyword').value.trim();
   }
 
   function isValid() {
-    if (searchType === 'keyword')     return document.getElementById('q-keyword').value.trim().length > 0;
+    if (searchType === 'keyword' || searchType === 'tires') return getQuery().length > 0;
     if (searchType === 'part_number') return document.getElementById('q-part').value.trim().length > 0;
-    return document.getElementById('q-year').value &&
-           document.getElementById('q-make').value &&
-           document.getElementById('q-model').value.trim().length > 0;
+    return document.getElementById('q-year').value && document.getElementById('q-make').value && document.getElementById('q-model').value.trim().length > 0;
   }
 
   function getUrl(store) {
     if (searchType === 'vehicle') {
-      var y  = document.getElementById('q-year').value;
-      var mk = document.getElementById('q-make').value;
-      var mo = document.getElementById('q-model').value.trim();
-      return store.vehicle(y, mk, mo);
+      return store.vehicle(document.getElementById('q-year').value, document.getElementById('q-make').value, document.getElementById('q-model').value.trim());
     }
     return store.search(getQuery());
   }
 
-  function selectedStores() {
-    return STORES.filter(function(s) { return selected[s.name]; });
-  }
+  function selectedStores() { return activeStores().filter(function(s) { return selected[s.name]; }); }
 
-  function doSearch() {
-    if (!isValid()) return;
-    searched = true;
-    renderResults();
+  function doSearch() { if (!isValid()) return; searched = true; renderResults(); }
+
+  function renderLegend() {
+    var legend = document.getElementById('legend');
+    legend.innerHTML = '';
+    activeSections().forEach(function(sec) {
+      var item = document.createElement('div');
+      item.className = 'legend-item';
+      item.innerHTML = '<div class="legend-dot" style="background:'+sec.color+'"></div> '+sec.label;
+      legend.appendChild(item);
+    });
   }
 
   function renderStores() {
-    var allOn = STORES.every(function(s) { return selected[s.name]; });
+    var stores = activeStores();
+    var allOn  = stores.every(function(s) { return selected[s.name]; });
     document.getElementById('toggle-all-btn').textContent = allOn ? 'Deselect all' : 'Select all';
     var grid = document.getElementById('store-grid');
     grid.innerHTML = '';
 
-    SECTIONS.forEach(function(sec) {
-      var stores = STORES.filter(function(s) { return s.type === sec.type; });
-      var section = document.createElement('div');
-      section.style.marginBottom = '0.75rem';
+    activeSections().forEach(function(sec) {
+      var secStores = stores.filter(function(s) { return s.type === sec.type; });
+      var wrap = document.createElement('div');
+      wrap.style.marginBottom = '0.75rem';
 
       var labelDiv = document.createElement('div');
       labelDiv.className = 'section-label';
-      labelDiv.innerHTML = '<div class="section-dot" style="background:' + sec.color + '"></div><span class="section-text">' + sec.label + '</span>';
-      section.appendChild(labelDiv);
+      labelDiv.innerHTML = '<div class="section-dot" style="background:'+sec.color+'"></div><span class="section-text">'+sec.label+'</span>';
+      wrap.appendChild(labelDiv);
 
       var storeGrid = document.createElement('div');
       storeGrid.className = 'store-grid';
 
-      stores.forEach(function(s) {
+      secStores.forEach(function(s) {
         var card = document.createElement('div');
         card.className = 'store-card ' + (selected[s.name] ? 'on' : 'off');
 
         var logo = document.createElement('div');
         logo.className = 'store-logo';
-        logo.style.background = COLOR_MAP[s.type];
+        logo.style.background = COLORS[s.type];
         logo.textContent = s.logo;
 
         var nameWrap = document.createElement('div');
@@ -264,21 +292,21 @@
         card.appendChild(logo);
         card.appendChild(nameWrap);
 
-        card.addEventListener('click', (function(store) {
+        card.addEventListener('click', (function(store, cardEl) {
           return function() {
             selected[store.name] = !selected[store.name];
-            card.className = 'store-card ' + (selected[store.name] ? 'on' : 'off');
-            var allOn = STORES.every(function(s) { return selected[s.name]; });
+            cardEl.className = 'store-card ' + (selected[store.name] ? 'on' : 'off');
+            var allOn = activeStores().every(function(s) { return selected[s.name]; });
             document.getElementById('toggle-all-btn').textContent = allOn ? 'Deselect all' : 'Select all';
             renderResults();
           };
-        })(s));
+        })(s, card));
 
         storeGrid.appendChild(card);
       });
 
-      section.appendChild(storeGrid);
-      grid.appendChild(section);
+      wrap.appendChild(storeGrid);
+      grid.appendChild(wrap);
     });
   }
 
@@ -316,7 +344,7 @@
 
       var logo = document.createElement('div');
       logo.className = 'result-logo';
-      logo.style.background = COLOR_MAP[s.type];
+      logo.style.background = COLORS[s.type];
       logo.textContent = s.logo;
 
       var info = document.createElement('div');
@@ -350,6 +378,7 @@
     box.appendChild(resultsBox);
   }
 
+  renderLegend();
   renderStores();
   renderResults();
 })();
